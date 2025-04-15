@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyNewsApp</string>
+    <string name="news_bulletin_24_7">News Bulletin 24/7</string>
+    <string name="view_page_images">view page images</string>
+    <string name="imageLine"> | </string>
+    <string name="shows_error">Shows error</string>
 </resources>
