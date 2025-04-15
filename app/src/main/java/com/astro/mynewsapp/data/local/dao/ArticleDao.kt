@@ -16,6 +16,9 @@ interface ArticleDao {
     @Query("SELECT * FROM articles")
     fun getAllArticles(): Flow<List<ArticleEntity>>
 
+    @Query("SELECT * FROM articles WHERE category=:category")
+    fun getArticlesByCategory(category: String): Flow<List<ArticleEntity>>
+
     @Query("DELETE FROM articles")
     suspend fun clearAll()
 }

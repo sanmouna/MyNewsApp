@@ -49,7 +49,14 @@ class NewsListFragment : Fragment() {
                     binding.viewPagerRecyclerView.visibility = View.VISIBLE
                     resource.data?.let { newsResponse ->
                         val adapter = NewsListAdapter(activity as MainActivity) { clickedArticle ->
-
+                            if (!NewsAppUtils.isOnline(requireContext())) {
+                                NewsAppUtils.showCustomDialog(
+                                    requireContext(),
+                                    "Oops!",
+                                    "Please Check Your Internet Connection And Try Again."
+                                )
+                                return@NewsListAdapter
+                            }
                             val url = clickedArticle.url
                             println(url)
 
@@ -73,7 +80,12 @@ class NewsListFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    //newsListViewModel.fetchSavedNews()
+                    newsListViewModel.fetchSavedNews()
+                    NewsAppUtils.showCustomDialog(
+                        requireContext(),
+                        resource.message.toString(),
+                        "Please Check Your API Key"
+                    )
                     // Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
                 }
 
@@ -87,7 +99,7 @@ class NewsListFragment : Fragment() {
         if (NewsAppUtils.isOnline(requireContext())) {
             newsListViewModel.fetchNewsByCategory(category)
         } else {
-            newsListViewModel.fetchSavedNews()
+            newsListViewModel.fetchSavedCategoryNews(category)
         }
 
 

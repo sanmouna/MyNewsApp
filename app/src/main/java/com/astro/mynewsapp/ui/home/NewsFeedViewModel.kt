@@ -30,7 +30,8 @@ class NewsFeedViewModel @Inject constructor(private val repository: NewsReposito
                         author = it.author,
                         publishedAt = it.publishedAt ?: "",
                         imageUrl = it.urlToImage ?: "",
-                        url = it.url ?: ""
+                        url = it.url ?: "",
+                        category = it.category?:""
                     )
                 } ?: emptyList()
                 repository.saveArticles(articles)

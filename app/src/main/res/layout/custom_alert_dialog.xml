@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
+    android:id="@+id/parentLayout"
     android:orientation="vertical"
     android:background="@drawable/image_rounded_bg">
 
@@ -14,7 +15,7 @@
         android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:src="@drawable/error_icon" />
+        android:src="@drawable/icon_error" />
 
     <TextView
         android:layout_gravity="center"
@@ -27,7 +28,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/roboto_slab_semi_bold"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black" />
+        android:textColor="#FFBD31" />
 
     <TextView
         android:id="@+id/dialogMessage"

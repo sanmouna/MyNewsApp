@@ -29,7 +29,8 @@ class NewsListViewModel @Inject constructor(private val repository: NewsReposito
                         author = it.author,
                         publishedAt = it.publishedAt ?: "",
                         imageUrl = it.urlToImage ?: "",
-                        url = it.url ?: ""
+                        url = it.url ?: "",
+                        category = category
                     )
                 } ?: emptyList()
                 repository.saveArticles(articles)
@@ -44,6 +45,17 @@ class NewsListViewModel @Inject constructor(private val repository: NewsReposito
     fun fetchSavedNews() {
         viewModelScope.launch {
             repository.getSavedArticles().collect { savedArticles ->
+                _newsCategory.postValue(
+                    if (savedArticles.isNotEmpty()) Resource.Success(savedArticles)
+                    else Resource.Error("No articles saved.")
+                )
+            }
+        }
+    }
+
+    fun fetchSavedCategoryNews(category: String) {
+        viewModelScope.launch {
+            repository.getSavedCategoryArticles(category).collect { savedArticles ->
                 _newsCategory.postValue(
                     if (savedArticles.isNotEmpty()) Resource.Success(savedArticles)
                     else Resource.Error("No articles saved.")

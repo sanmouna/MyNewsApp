@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.astro.mynewsapp.R
 import java.text.SimpleDateFormat
@@ -31,16 +32,20 @@ object NewsAppUtils {
 
         val titleTextView = dialogView.findViewById<TextView>(R.id.dialogTitle)
         val messageTextView = dialogView.findViewById<TextView>(R.id.dialogMessage)
-
+        val parentLayout = dialogView.findViewById<LinearLayout>(R.id.parentLayout)
         titleTextView.text = title
         messageTextView.text = message
+
+        parentLayout.setOnClickListener {
+            customDialog?.dismiss()
+        }
 
         val dialog = AlertDialog.Builder(context)
             .setView(dialogView)
             .create()
-
+        dialog.setCanceledOnTouchOutside(true)
         dialog.show()
-        customDialog = dialog // store reference
+        customDialog = dialog
     }
 
     fun dismissCustomDialog() {

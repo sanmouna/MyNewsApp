@@ -12,5 +12,6 @@ data class ArticleEntity(
     val author: String?,
     val publishedAt: String,
     val imageUrl: String,
-    val url: String
+    val url: String,
+    val category: String
 )

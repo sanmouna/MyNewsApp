@@ -42,6 +42,12 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragmen) {
         _binding = NewsFeedFragmenBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.todayDate.text = getFormattedDate()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         newsFeedViewModel.newsData.observe(viewLifecycleOwner, Observer { resource ->
             when (resource) {
                 is Resource.Success -> {
@@ -50,41 +56,38 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragmen) {
 
                     resource.data?.let { newsResponse ->
                         val adapter = HeadlinesPagerAdapter { clickedArticle ->
-
+                            if (!NewsAppUtils.isOnline(requireContext())) {
+                                NewsAppUtils.showCustomDialog(
+                                    requireContext(),
+                                    "Oops!",
+                                    "Please Check Your Internet Connection And Try Again."
+                                )
+                                return@HeadlinesPagerAdapter
+                            }
                             val url = clickedArticle.url
-                            println(url)
-
                             val bundle = Bundle().apply {
                                 putString("article_url", url)
                             }
-
                             val webViewFragment = WebViewFragment().apply {
                                 arguments = bundle
                             }
-
                             (activity as? MainActivity)?.switchFragment(webViewFragment)
-
                         }
-
                         val savedArticles = resource.data.map { it.toArticles() }
                         adapter.submitList(savedArticles.take(5))
                         binding.headlinesViewPager.adapter = adapter
 
-
                     }
-
-
                 }
 
                 is Resource.Error -> {
                     println(resource.message)
-
                     NewsAppUtils.showCustomDialog(
                         requireContext(),
                         resource.message.toString(),
                         "Please Check Your API Key"
                     )
-                    //newsFeedViewModel.fetchSavedNews()
+                    newsFeedViewModel.fetchSavedNews()
                 }
 
                 is Resource.Loading -> {
@@ -94,23 +97,13 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragmen) {
             }
         })
 
-
         if (NewsAppUtils.isOnline(requireContext())) {
             newsFeedViewModel.fetchNewsByHeadlines("us")
         } else {
-            NewsAppUtils.showCustomDialog(requireContext(), "", "")
             newsFeedViewModel.fetchSavedNews()
         }
 
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val tabTitles = listOf("Business", "Entertainment", "General", "Health", "Science", "Tech")
-
-
         val adapter = NewsPagerAdapter(requireActivity())
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

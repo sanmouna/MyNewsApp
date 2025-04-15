@@ -26,7 +26,8 @@ class NewsRepository @Inject constructor(
                             author = article.author,
                             publishedAt = article.publishedAt ?: "",
                             imageUrl = article.urlToImage ?: "",
-                            url = article.url ?:""
+                            url = article.url ?:"",
+                            category = article.category ?:""
                         )
                     }
                     // Insert the articles into the database
@@ -54,7 +55,8 @@ class NewsRepository @Inject constructor(
                             author = article.author,
                             publishedAt = article.publishedAt ?: "",
                             imageUrl = article.urlToImage ?: "",
-                            url = article.url ?: ""
+                            url = article.url ?: "",
+                            category = article.category?:""
                         )
                     }
                     // Insert the articles into the database
@@ -78,6 +80,10 @@ class NewsRepository @Inject constructor(
     // ROOM: Get all saved articles
     fun getSavedArticles(): Flow<List<ArticleEntity>> {
         return articleDao.getAllArticles()
+    }
+
+    fun getSavedCategoryArticles(category: String): Flow<List<ArticleEntity>> {
+        return articleDao.getArticlesByCategory(category)
     }
 
     // ROOM: Delete all
