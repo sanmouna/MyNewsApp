@@ -51,6 +51,7 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.7.0")
 
 
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     //Hilt
     implementation("com.google.dagger:hilt-android:2.55")
     kapt("com.google.dagger:hilt-compiler:2.55")

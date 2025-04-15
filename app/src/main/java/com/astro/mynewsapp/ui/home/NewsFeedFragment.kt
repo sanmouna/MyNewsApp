@@ -74,7 +74,11 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragmen) {
                             (activity as? MainActivity)?.switchFragment(webViewFragment)
                         }
                         val savedArticles = resource.data.map { it.toArticles() }
-                        adapter.submitList(savedArticles.take(5))
+                        val filteredList = savedArticles
+                            .filter { !it.urlToImage.isNullOrEmpty() && !it.author.isNullOrEmpty() }
+                            .take(5)
+                        adapter.submitList(filteredList)
+                        binding.swipeRefreshLayout.isRefreshing = false
                         binding.headlinesViewPager.adapter = adapter
 
                     }
@@ -101,6 +105,14 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragmen) {
             newsFeedViewModel.fetchNewsByHeadlines("us")
         } else {
             newsFeedViewModel.fetchSavedNews()
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            if (NewsAppUtils.isOnline(requireContext())) {
+                newsFeedViewModel.fetchNewsByHeadlines("us")
+            } else {
+                newsFeedViewModel.fetchSavedNews()
+            }
         }
 
         val tabTitles = listOf("Business", "Entertainment", "General", "Health", "Science", "Tech")

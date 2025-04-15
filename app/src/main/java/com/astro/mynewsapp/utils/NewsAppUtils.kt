@@ -84,15 +84,26 @@ object NewsAppUtils {
         }
     }
     fun extractName(trimmedRaw: String): String {
+        // If the string contains '/', try to get the last segment
+        if (trimmedRaw.contains("/")) {
+            val lastSegment = trimmedRaw.substringAfterLast("/").trim()
+            if (lastSegment.isNotEmpty()) return lastSegment
+        }
+
+        // Try to extract from brackets: (something)
         val bracketRegex = "\\((.*?)\\)".toRegex()
         val bracketMatch = bracketRegex.find(trimmedRaw)
         if (bracketMatch != null) {
             return bracketMatch.groupValues[1].trim().split(" ").firstOrNull() ?: ""
         }
+
+        // Try to split by comma and get first word
         val commaSplit = trimmedRaw.split(",").firstOrNull()?.trim()
         if (!commaSplit.isNullOrEmpty()) {
             return commaSplit.split(" ").firstOrNull() ?: ""
         }
+
+        // Default: get first word
         return trimmedRaw.split(" ").firstOrNull() ?: ""
     }
 
