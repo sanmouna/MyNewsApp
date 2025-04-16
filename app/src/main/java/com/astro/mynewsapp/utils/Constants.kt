@@ -17,5 +17,5 @@ object Constants {
     const val ERROR_MESSAGE = "Something went wrong"
 
     // Others
-    const val ARTICLE_KEY = "article_key"  // for passing data between fragments
+    const val ARTICLE_KEY = "article_key"
 }

@@ -48,10 +48,10 @@ dependencies {
     // Room
     implementation ("androidx.room:room-runtime:2.7.0")
     kapt ("androidx.room:room-compiler:2.7.0")
+
     implementation ("androidx.room:room-ktx:2.7.0")
-
-
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     //Hilt
     implementation("com.google.dagger:hilt-android:2.55")
     kapt("com.google.dagger:hilt-compiler:2.55")
@@ -70,7 +70,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.12.0")
 
     implementation ("androidx.viewpager2:viewpager2:1.1.0")
-
 
     implementation ("androidx.appcompat:appcompat:1.7.0")
     // Core Kotlin Extensions (KTX)
@@ -113,6 +112,22 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Unit Testing
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:5.2.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:5.2.1")
+
+    // Android Instrumented Testing
+    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation ("androidx.test:rules:1.5.0")
+    testImplementation(kotlin("test"))
+
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 }
 
 kapt {
