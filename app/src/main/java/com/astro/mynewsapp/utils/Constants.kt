@@ -1,7 +1,7 @@
 package com.astro.mynewsapp.utils
 
 object Constants {
-    const val API_KEY = "cbd11bb4eb4b4d3da9c40f165742e1c2"
+    const val API_KEY = "f91782068946430ba627e873a6ec8397"
     //cbd11bb4eb4b4d3da9c40f165742e1c2
    // f91782068946430ba627e873a6ec8397
     const val BASE_URL = "https://newsapi.org/v2/"
