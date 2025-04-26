@@ -36,7 +36,8 @@ object AppModule {
             context.applicationContext,
             AppDatabase::class.java,
             "news_database"
-        ).build()
+        ).fallbackToDestructiveMigration(false)
+            .build()
     }
 
     @Provides

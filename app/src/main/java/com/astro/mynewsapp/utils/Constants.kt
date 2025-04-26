@@ -1,7 +1,7 @@
 package com.astro.mynewsapp.utils
 
 object Constants {
-    const val API_KEY = "f91782068946430ba627e873a6ec8397"
+    const val API_KEY = "cbd11bb4eb4b4d3da9c40f165742e1c2"
     //cbd11bb4eb4b4d3da9c40f165742e1c2
    // f91782068946430ba627e873a6ec8397
     const val BASE_URL = "https://newsapi.org/v2/"
@@ -11,6 +11,14 @@ object Constants {
 
     // Categories
     val NEWS_CATEGORIES = listOf("business", "entertainment", "general", "health", "science", "sports", "technology")
+
+    val BUSINESS = "business"
+    val ENTERTAINMENT = "entertainment"
+    val GENERAL = "general"
+    val HEALTH = "health"
+    val SCIENCE = "science"
+    val SPORTS = "sports"
+    val TECHNOLOGY = "technology"
 
     // Network Status Messages
     const val NO_INTERNET_MESSAGE = "No Internet Connection"
